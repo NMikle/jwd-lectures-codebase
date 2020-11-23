@@ -1,8 +1,8 @@
-package com.epam.jwd.model;
+package com.epam.jwd.example.model;
 
-import com.epam.jwd.route.DrivingRoteStrategy;
-import com.epam.jwd.route.RouteBuildStrategy;
-import com.epam.jwd.route.WalkingRoteStrategy;
+import com.epam.jwd.example.route.impl.DrivingRoteStrategy;
+import com.epam.jwd.example.route.RouteBuildStrategy;
+import com.epam.jwd.example.route.impl.WalkingRoteStrategy;
 
 public class Navigator {
 
