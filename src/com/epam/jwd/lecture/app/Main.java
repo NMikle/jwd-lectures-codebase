@@ -1,7 +1,6 @@
-package com.epam.jwd.example.app;
+package com.epam.jwd.lecture.app;
 
-import com.epam.jwd.example.model.Dog;
-import com.epam.jwd.example.pattern.Color;
+import com.epam.jwd.lecture.pattern.Color;
 
 public class Main {
 

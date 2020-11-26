@@ -1,4 +1,4 @@
-package com.epam.jwd.example.pattern;
+package com.epam.jwd.lecture.pattern;
 
 public enum Singleton {
     INSTANCE;
