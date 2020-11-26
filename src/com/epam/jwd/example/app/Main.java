@@ -1,29 +1,16 @@
 package com.epam.jwd.example.app;
 
-import com.epam.jwd.example.model.Driver;
-import com.epam.jwd.example.model.Navigator;
-import com.epam.jwd.example.model.Human;
+import com.epam.jwd.example.model.Dog;
+import com.epam.jwd.example.pattern.Color;
 
 public class Main {
 
-
-    public static void main(String[] args) {
-        int amountOfRecords = 4;
-        final Navigator navigator = new Navigator("Los Angeles");
-        System.out.println(navigator.buildRote());
-        navigator.changeToWalking();
-        System.out.println(navigator.buildRote());
-        Human[] c = new Driver[]{};
-        printPeople(c);
+    public static final void main(String[] args) {
+        final Color blue = Color.BLUE;
+        System.out.println(Color.valueOf("BLUE").getAge());
+        System.out.println(blue.isOld());
+        Integer a = 3;
+        a.hashCode();
     }
-
-    private static void printPeople(Human[] c) {
-        for (Human i : c) {
-            System.out.println(i);
-        }
-    }
-}
-
-class XMLParser {
 
 }
