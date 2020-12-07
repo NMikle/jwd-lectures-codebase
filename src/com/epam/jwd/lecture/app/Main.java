@@ -1,21 +1,19 @@
 package com.epam.jwd.lecture.app;
 
-import com.epam.jwd.lecture.exception.Cat;
-import com.epam.jwd.lecture.exception.CatReader;
-import com.epam.jwd.lecture.exception.MeowException;
+import com.epam.jwd.lecture.decorator.api.ApplicationContext;
+import com.epam.jwd.lecture.decorator.api.FigureFactory;
+import com.epam.jwd.lecture.decorator.impl.ConcreteApplicationContext;
+import com.epam.jwd.lecture.model.Point;
 
 public class Main {
 
     public static void main(String[] args) {
-        try (final CatReader reader = new CatReader()) {
-            final Cat[] cats = reader.read();
-            for (Cat cat : cats) {
-                System.out.println(cat.getName());
-            }
-        } catch (MeowException e) {
-            System.out.println("Catch meow exception");
-        }
-        System.out.println("after try/catch");
+        final ApplicationContext applicationContext = new ConcreteApplicationContext();
+
+
+        final FigureFactory figureFactory = applicationContext.createFigureFactory();
+        figureFactory.createFigure("type", new Point());
     }
+
 
 }
