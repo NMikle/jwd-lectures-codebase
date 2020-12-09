@@ -12,9 +12,10 @@ public class Main {
         List<Square> figures = new ArrayList<>();
         figures.add(new Square("A"));
         figures.add(new Square("B"));
-        final Iterator<Square> figureIterator = figures.iterator();
+        figures.add(new Square("C"));
+        Iterator<Square> figureIterator = figures.iterator();
         while (figureIterator.hasNext()) {
-            final Square square = figureIterator.next();
+            Square square = figureIterator.next();
             figures.remove(square);
         }
     }
