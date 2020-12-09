@@ -16,7 +16,7 @@ public class FactoryExample {
                 figure = new Triangle();
                 break;
             case "square":
-                figure = new Square();
+                figure = new Square("name");
                 break;
             default:
                 throw new NoSuchMethodException("Figure not implemented");
