@@ -3,6 +3,7 @@ package com.epam.jwd.lecture.generic;
 import com.epam.jwd.lecture.model.Figure;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class UniversalFigureService<T extends Figure> implements FigureService<T> {
 
@@ -30,5 +31,22 @@ public class UniversalFigureService<T extends Figure> implements FigureService<T
         }
         figures[amountOfFigures] = figure;
         amountOfFigures++;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int pointer = 0;
+
+            @Override
+            public boolean hasNext() {
+                return pointer != amountOfFigures;
+            }
+
+            @Override
+            public T next() {
+                return figures[pointer++];
+            }
+        };
     }
 }

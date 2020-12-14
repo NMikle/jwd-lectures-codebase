@@ -1,8 +1,6 @@
 package com.epam.jwd.lecture.model;
 
-import java.util.Objects;
-
-public class Square implements Figure {
+public class Square implements Figure, Comparable<Square> {
     private final String name;
 
     public Square(String name) {
@@ -31,5 +29,14 @@ public class Square implements Figure {
     @Override
     public String toString() {
         return "Square: " + name;
+    }
+
+    @Override
+    public int compareTo(Square otherSquare) {
+        return this.name.compareTo(otherSquare.name);
+    }
+
+    public static int comparingByNames(Square o1, Square o2) {
+        return String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
     }
 }
