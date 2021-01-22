@@ -3,42 +3,44 @@ package com.epam.jwd.lecture.nested;
 public class OuterClass extends ParentClass {
 
     private String someField = "initial string";
-    private InnerClass innerObject = new InnerClass() {
-        @Override
-        public String someAbstractMethod() {
-            return null;
-        }
-    };
+    private static String someStaticField = "initial static string";
 
-    public abstract class InnerClass extends AnotherParentClass implements SomeInterface {
+    public abstract static class NestedClass extends ParentClass implements SomeInterface {
 
-        private String innerField;
-        private final static String staticField = "";
-
-        public void changeOuterField(String newValue) {
-            someField = newValue;
-            System.out.println(newValue);
+        public void helpingDoSomething(OuterClass o) {
+            o.nonStaticHello();
+            o.someField = "a";
         }
 
-        @Override
-        public final int coolMethod() {
+        public void methodWithoutOuterClassObject() {
+            hello();
+            OuterClass.someStaticField = "anotherValue";
+        }
+
+        public static int nestedStaticMethod() {
+            hello();
             return 42;
         }
 
-        public abstract String someAbstractMethod();
-
-        public final class AnotherInnerClass extends InnerClass {
-
+        public static class AnotherNestedClass extends NestedClass {
             @Override
-            public String someAbstractMethod() {
-                return "Hey from abstract method implementation";
+            public void doSomething(OuterClass o) {
+                o.someField = "a";
             }
         }
 
     }
 
-    public void changeInnerField(String newValue) {
-        final InnerClass i = innerObject.new AnotherInnerClass();
-        i.innerField = newValue;
+    public static void hello() {
+        //do something
     }
+
+    public void nonStaticHello() {
+        //do something
+    }
+
+    public enum SomeEnumeration {
+
+    }
+
 }
