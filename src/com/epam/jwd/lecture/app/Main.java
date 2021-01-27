@@ -1,52 +1,23 @@
 package com.epam.jwd.lecture.app;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
+    private static final String PHONE_REGEX = "[+]375\\s\\((29|25|33|44)\\)\\s\\d{3}-\\d{2}-\\d{2}";
+
     public static void main(String[] args) {
-//        final BigDecimal twentyFive = BigDecimal.valueOf(25);
-//        final BigDecimal result = twentyFive.divide(BigDecimal.valueOf(24), 2, RoundingMode.DOWN);
-//        System.out.println(result);
-
-//        int a = new Integer(4);
-//        Integer b = 5;
-//        int c = Integer.parseInt("6");
-//        Integer d = Integer.valueOf("7");
-//        int e = new Integer("8");
-//        final Boolean trueOrFalse = new Boolean("tRuE");
-//
-//        if (new Integer("8") == new Integer("8")) {
-//            System.out.println("same");
-//        } else {
-//            System.out.println("different");
-//        }
-//
-//        if (new Integer("8") <= new Integer("8")) {
-//            System.out.println("fewer or equal");
-//        } else {
-//            System.out.println("greater");
-//        }
-
-//        final LocalDateTime now = LocalDateTime.now();
-//
-//        final LocalDateTime jwdEndsDate = now.plusMonths(2);
-//
-//        System.out.println(jwdEndsDate);
-
-        String a = "a";
-        String b = "a";
-        String c = "a";
-        String d = "a";
-
-        a = a + b;
-        c = a + c;
-        d = c + d;
-
-        final String result = new StringBuilder(a).append(b).append(c).append(d).toString();
+        String examplePhoneNumber = "Hello, My name is Paul. My phone is: +375 (29) 123-45-67. I'm 99 y. old. +375 (99) 678-45-67 Another phone +375 (33) 678-45-67. Some text.";
+        Pattern p = Pattern.compile(PHONE_REGEX);
+        Matcher m = p.matcher(examplePhoneNumber);
+        boolean b = m.find();
+//        System.out.println(m.groupCount());
+        System.out.println(b);
+        System.out.println(m.group());
+        final boolean b1 = m.find();
+        System.out.println(m.group());
+//        System.out.println(m.start());
+//        System.out.println(m.end());
     }
 }
