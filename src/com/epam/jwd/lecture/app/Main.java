@@ -1,22 +1,23 @@
 package com.epam.jwd.lecture.app;
 
-import com.epam.jwd.lecture.interpreter.Interpreter;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.epam.jwd.lecture.interpreter.Interpreter.parse;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main {
 
     public static void main(String[] args) {
-        Interpreter.Expr expr = parse("w x z - +");
-        Map<String, Integer> context = new HashMap<>();
-//        Map<String, Integer> context = Map.of("w", 5, "x", 10, "z", 42);
-        context.put("w", 5);
-        context.put("x", 10);
-        context.put("z", 42);
-        int result = expr.interpret(context);
-        System.out.println(result);        // -27
+        final Locale byLocale = new Locale("be", "BY");
+        Locale.setDefault(byLocale);
+//        final Locale current = Locale.getDefault();
+//        System.out.println(current.getDisplayCountry());
+
+
+        System.out.println(byLocale.getDisplayCountry());
+        final ResourceBundle bundle = ResourceBundle.getBundle("testBundle", new Locale("ru", "RU"));
+        if (bundle.containsKey("temp.welcomeMessage")) {
+            System.out.println("temp.welcomeMessage: " + bundle.getString("temp.welcomeMessage"));
+        } else {
+            System.out.println("no temp.welcomeMessage");
+        }
     }
 }
