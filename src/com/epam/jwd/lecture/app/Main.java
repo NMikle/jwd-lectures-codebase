@@ -1,23 +1,62 @@
 package com.epam.jwd.lecture.app;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
+import com.epam.jwd.lecture.model.BookingRole;
+import com.epam.jwd.lecture.model.BookingUser;
+import com.mysql.jdbc.Driver;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Enumeration;
 
 public class Main {
 
+    private static final String SELECT_SQL = "select u.id as id, u.u_login as login, u.u_pass as password, u.u_name as name, r.role_name as role from b_user u join u_role r on r.id = u.role_id";
+
     public static void main(String[] args) {
-        final Locale byLocale = new Locale("be", "BY");
-        Locale.setDefault(byLocale);
-//        final Locale current = Locale.getDefault();
-//        System.out.println(current.getDisplayCountry());
+        registerDrivers();
+        try (final Connection conn = DriverManager
+                .getConnection("jdbc:mysql://localhost:1234/cafe", "root", "root");
+             final Statement statement = conn.createStatement();
+             final ResultSet resultSet = statement.executeQuery(SELECT_SQL)) {
+            while (resultSet.next()) {
+                final BookingUser user = new BookingUser(resultSet.getInt("id"),
+                        resultSet.getString("login"),
+                        resultSet.getString("password"),
+                        resultSet.getString("name"),
+                        BookingRole.of(resultSet.getString("role")));
+                System.out.println("user read successfully");
+                System.out.println(user);
+            }
+        } catch (SQLException e) {
+            System.out.println("user read unsuccessfully");
+            e.printStackTrace();
+        }
+        deregisterDrivers();
+    }
 
+    private static void registerDrivers() {
+        System.out.println("registering another drivers");
+        try {
+            DriverManager.registerDriver(DriverManager.getDriver("jdbc:mysql://localhost:1234/cafe"));
+            System.out.println("registration successful");
+        } catch (SQLException e) {
+            System.out.println("deregistering successful");
+            e.printStackTrace();
+        }
+    }
 
-        System.out.println(byLocale.getDisplayCountry());
-        final ResourceBundle bundle = ResourceBundle.getBundle("testBundle", new Locale("ru", "RU"));
-        if (bundle.containsKey("temp.welcomeMessage")) {
-            System.out.println("temp.welcomeMessage: " + bundle.getString("temp.welcomeMessage"));
-        } else {
-            System.out.println("no temp.welcomeMessage");
+    private static void deregisterDrivers() {
+        Enumeration<java.sql.Driver> drivers = DriverManager.getDrivers();
+        while (drivers.hasMoreElements()) {
+            try {
+                DriverManager.deregisterDriver(drivers.nextElement());
+            } catch (SQLException e) {
+                System.out.println("deregistration unsuccessful");
+                e.printStackTrace();
+            }
         }
     }
 }
