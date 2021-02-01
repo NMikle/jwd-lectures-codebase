@@ -2,7 +2,6 @@ package com.epam.jwd.lecture.app;
 
 import com.epam.jwd.lecture.model.BookingRole;
 import com.epam.jwd.lecture.model.BookingUser;
-import com.mysql.jdbc.Driver;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
