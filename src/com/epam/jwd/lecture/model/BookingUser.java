@@ -1,6 +1,10 @@
 package com.epam.jwd.lecture.model;
 
-public class BookingUser {
+import com.epam.jwd.lecture.sql.Bark;
+
+import java.lang.reflect.Proxy;
+
+public class BookingUser implements User {
 
     private final Integer id;
     private final String login;
@@ -8,7 +12,7 @@ public class BookingUser {
     private final String name;
     private final BookingRole role;
 
-    public BookingUser(Integer id, String login, String password, String name, BookingRole role) {
+    private BookingUser(Integer id, String login, String password, String name, BookingRole role) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -20,10 +24,12 @@ public class BookingUser {
         return id;
     }
 
+    @Override
     public String getLogin() {
         return login;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -69,5 +75,18 @@ public class BookingUser {
                 ", name='" + name + '\'' +
                 ", roleId=" + role +
                 '}';
+    }
+
+    private static void iAmPrivateMethod() {
+        System.out.println("text from private method");
+    }
+
+    public static User newInstance(Integer id, String login, String password, String name, BookingRole role) {
+        return addSomeAnnotationMagic(new BookingUser(id, login, password, name, role));
+    }
+
+    private static User addSomeAnnotationMagic(User adminUser) {
+        return (User) Proxy.newProxyInstance(adminUser.getClass().getClassLoader(),
+                new Class[]{RandomUser.class}, new ProxyUser(adminUser));
     }
 }

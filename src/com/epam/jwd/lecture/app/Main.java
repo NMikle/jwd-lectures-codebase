@@ -1,29 +1,28 @@
 package com.epam.jwd.lecture.app;
 
-import com.epam.jwd.lecture.concurent.RunnableSuccessor;
-import com.epam.jwd.lecture.concurent.ThreadSuccessor;
+import com.epam.jwd.lecture.model.BookingRole;
+import com.epam.jwd.lecture.model.BookingUser;
+import com.epam.jwd.lecture.model.RandomUser;
+import com.epam.jwd.lecture.model.User;
 
 public class Main {
 
     public static void main(String[] args) {
-        final ThreadSuccessor firstThread = new ThreadSuccessor();
-        final Thread secondThread = new Thread(new RunnableSuccessor());
+        final User adminUser = BookingUser.newInstance(1, "admin", "12345", "Bob", BookingRole.ADMIN);
 
-        System.out.println("Hello from Main thread");
+        System.out.println(adminUser.getLogin());
+        System.out.println(adminUser.getPassword());
+        System.out.println(((RandomUser) adminUser).getRandomData());
 
-        System.out.println("first thread state: " + firstThread.getState());
-        System.out.println("second thread state: " + secondThread.getState());
-
-        firstThread.start();
-
-        System.out.println("first thread state: " + firstThread.getState());
-        System.out.println("second thread state: " + secondThread.getState());
-
-        secondThread.start();
-
-        System.out.println("first thread state: " + firstThread.getState());
-        System.out.println("second thread state: " + secondThread.getState());
-
-        System.out.println("Hello again from Main thread");
+//        final Class<BookingUser> clazz = BookingUser.class;
+//        final Method[] bookingUserMethods = clazz.getDeclaredMethods();
+//        final Method getPasswordMethod = Arrays.stream(bookingUserMethods)
+//                .filter(method -> "getPassword".equals(method.getName()))
+//                .findAny()
+//                .orElse(null);
+////        getPasswordMethod.setAccessible(true);
+//        final Object returnResult = getPasswordMethod.invoke(proxiedUser, null);
+//        System.out.println(returnResult);
+//        Arrays.stream(bookingUserMethods).map(Method::getName).forEach(System.out::println);
     }
 }
